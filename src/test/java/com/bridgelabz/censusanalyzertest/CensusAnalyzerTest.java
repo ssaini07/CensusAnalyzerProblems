@@ -5,30 +5,32 @@ import com.bridgelabz.censusanalyzer.CensusAnalyzerException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.swing.*;
+
 public class CensusAnalyzerTest {
 
-    private static final String INDIA_CENSUS_CSV_PATH = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCensusData.csv";
+    private static final String INDIA_STATE_CODE_CSV_PATH = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCode.csv";
 
-    //TC1.1 ==> Given Case1 India State Census CSV File when Check the correct Record
+    //TC1.1 ==> Given Case1 India States Code CSV File when Check the correct Record
     @Test
     public void givenCase1IndiaCensusCSVFile_WhenLoad_ShouldReturnCorrectRecord() {
         CensusAnalyzer censusAnalyser = new CensusAnalyzer();
         try {
-            int numOfRecord = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_PATH);
-            Assert.assertEquals(29, numOfRecord);
+            int numOfRecord = censusAnalyser.loadIndianStatesInfo(INDIA_STATE_CODE_CSV_PATH);
+            Assert.assertEquals(37, numOfRecord);
         } catch (CensusAnalyzerException e) {
 
         }
     }
 
-    //TC1.2 ==> Given the State Census CSV File if incorrect Returns a custom Exception
+    //TC1.2 ==> Given the State code Census CSV File if incorrect Returns a custom Exception
 
     @Test
     public void givenCase2IndiaCensusCSVFile_WhenLoad_ShouldReturnInCorrectRecord() {
-        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCensusData.pdf";
+        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCode.csv";
         CensusAnalyzer censusAnalyser = new CensusAnalyzer();
         try {
-            int numOfRecord = censusAnalyser.loadIndiaCensusData(pathOfFile);
+            int numOfRecord = censusAnalyser.loadIndianStatesInfo(pathOfFile);
             Assert.assertEquals(27, numOfRecord);
         } catch (CensusAnalyzerException e) {
 
@@ -39,10 +41,10 @@ public class CensusAnalyzerTest {
     @Test
     public void givenCase3IndiaCensusCSVFile_ShouldReturnACustomExceptionWhenTypeIncorrect() {
 
-        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCensusData.pdf";
+        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCode.pdf";
         CensusAnalyzer censusAnalyser = new CensusAnalyzer();
         try {
-            int numOfRecord = censusAnalyser.loadIndiaCensusData(pathOfFile);
+            int numOfRecord = censusAnalyser.loadIndianStatesInfo(pathOfFile);
             Assert.assertEquals(30, numOfRecord);
         } catch (CensusAnalyzerException e) {
 
@@ -54,10 +56,10 @@ public class CensusAnalyzerTest {
     @Test
     public void givenCase4IndiaCensusCSVFile_ButDelimiterIncorrectShouldReturnACustomException() {
 
-        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCensusData.pdf";
+        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources// IndiaStateCode.csv";
         CensusAnalyzer censusAnalyser = new CensusAnalyzer();
         try {
-            int numOfRecord = censusAnalyser.loadIndiaCensusData(pathOfFile);
+            int numOfRecord = censusAnalyser.loadIndianStatesInfo(pathOfFile);
             Assert.assertEquals("Delimiter Failed here", true);
         } catch (CensusAnalyzerException e) {
 
@@ -68,15 +70,13 @@ public class CensusAnalyzerTest {
     @Test
     public void givenCase5IndiaCensusCSVFile_WhenCorrectButCSVHeaderIncorrectShouldReturnACustomException() {
 
-        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCensusDataHeader.csv";
+        String pathOfFile = "D:\\CensusAnalyzerProblems\\src\\main\\resources\\IndiaStateCodeHeaderChanged.csv";
         CensusAnalyzer censusAnalyser = new CensusAnalyzer();
         try {
-            int numOfRecord = censusAnalyser.loadIndiaCensusData(pathOfFile);
-            Assert.assertEquals("Header Defined Incorrectly", true);
+            int numOfRecord = censusAnalyser.loadIndianStatesInfo(pathOfFile);
         } catch (CensusAnalyzerException e) {
-
+            Assert.assertEquals(CensusAnalyzerException.ExceptionType.CSV_FILE_ISSUE, e.type);
         }
     }
-
 
 }

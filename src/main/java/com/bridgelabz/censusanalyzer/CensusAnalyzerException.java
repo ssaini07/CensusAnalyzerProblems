@@ -2,7 +2,7 @@ package com.bridgelabz.censusanalyzer;
 
 public class CensusAnalyzerException extends Exception {
 
-    ExceptionType type;
+    public ExceptionType type;
     private String message;
 
 
@@ -11,9 +11,9 @@ public class CensusAnalyzerException extends Exception {
         this.type = type;
     }
 
-    enum ExceptionType {
-        CENSUS_FILE_PROBLEM;
-
+   public enum ExceptionType {
+        //CENSUS_FILE_PROBLEM;
+        CSV_FILE_ISSUE;
     }
 
     @Override
